@@ -10,17 +10,20 @@ import {
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Home } from "./pages/Home.jsx";
+import { Login } from "./pages/Login.jsx";
 
 function checkIsLogged() {
   if (!localStorage.getItem("userData")) {
     return redirect("/login");
   }
+  return null;
 }
 
 function checkIsNotLogged() {
     if (localStorage.getItem("userData")) {
       return redirect("/dashboard");
     }
+    return null;
   }
 
 const router = createBrowserRouter([
@@ -30,11 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: (
-      <div>
-        <h1>LOGIN PAGE</h1>
-      </div>
-    ),
+    element: <Login />,
     loader: checkIsNotLogged
   },
   {
