@@ -28,7 +28,7 @@ export function Login() {
                 console.log("email o password non corretti");
                 reject("the email is not correct")
             }
-        },2000)    
+        },5000)    
     })
   }
 
@@ -38,7 +38,7 @@ export function Login() {
         <form onSubmit={onSubmit}>
           <img
             className="mb-4"
-            src="/docs/5.3/assets/brand/bootstrap-logo.svg"
+            src="https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?w=740&t=st=1713453360~exp=1713453960~hmac=13a30d2ee5e26f3a122e61ea0de9d5321bcdcd51fe15d0520a3e3e3e2690495b"
             alt=""
             width="72"
             height="57"

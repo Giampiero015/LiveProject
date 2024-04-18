@@ -11,6 +11,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Home } from "./pages/Home.jsx";
 import { Login } from "./pages/Login.jsx";
+import { Register } from "./pages/Register.jsx";
 
 function checkIsLogged() {
   if (!localStorage.getItem("userData")) {
@@ -38,11 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/registrati",
-    element: (
-      <div>
-        <h1>REGISTRATI</h1>
-      </div>
-    ),
+    element: <Register /> ,
     loader: checkIsNotLogged
   },
   {
