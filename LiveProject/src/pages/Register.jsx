@@ -31,13 +31,17 @@ export function Register(){
 
      function onRegister(){
         return new Promise((resolve, reject) => {
-            setTimeout(()=>{
+            setTimeout(() => {
                 if(email) {
                     console.log("");
                    const userData = JSON.stringify({
                         userName: "Melissa",
                         surname: "Mastro"
                 })
+                // const userData = ({
+                //   username: "Melissa",
+                //   surname:"Mastro",
+                // })
                     resolve(localStorage.setItem("useInfo",userData)
                 )
                 } else {
