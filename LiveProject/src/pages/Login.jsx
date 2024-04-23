@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const nav = useNavigate()
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
@@ -12,24 +13,36 @@ export function Login() {
   function handlePasswordChange(event) {
     setPassword(event.target.value);
   }
-
-  function onSubmit(event) {
+  
+  async function onSubmit(event) {
     event.preventDefault();
-    onLogin();
+    try {
+      let onSubmitResponse = await onLogin();
+      nav("/dashboard")
+      // return redirect("/dashboard")
+    } catch (error) {
+      console.log(error.message)
+      alert("email o password non corretti")
+    }
   }
 
   function onLogin() {
     return new Promise((resolve, reject) => {
-        setTimeout(()=>{
-            if(email) {
-                console.log("login avvenuto con successo");
-                resolve(localStorage.setItem("email",email))
-            } else {
-                console.log("email o password non corretti");
-                reject("the email is not correct")
-            }
-        },5000)    
-    })
+      setTimeout(() => {
+        if (email) {
+          console.log("login avvenuto con successo");
+          const userData = JSON.stringify({
+            userName: "Melissa",
+            surname: "Mastrovincenzo",
+            email,
+          });
+          resolve(localStorage.setItem("useInfo", userData));
+        } else {
+          console.log("email o password non corretti");
+          reject("the email is not correct");
+        }
+      }, 1000);
+    });
   }
 
   return (

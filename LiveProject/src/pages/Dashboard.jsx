@@ -1,10 +1,16 @@
 import Card from 'react-bootstrap/Card';
+import { redirect, redirectDocument } from 'react-router-dom';
 
 
 export function Dashboard() {
     const getItem = localStorage.getItem("useInfo")
 
     const userData = JSON.parse(getItem);
+
+    function userLogOut() {
+      localStorage.removeItem("useInfo");
+      return redirect("/");
+    }
 
     return (
         <>  
@@ -17,8 +23,8 @@ export function Dashboard() {
                     Some quick example text to build on the card title and make up the
                     bulk of the card's content.
                 </Card.Text>
-                <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href="#">Another Link</Card.Link>
+                <Card.Link href="#" onClick={userLogOut}>Log out</Card.Link>
+                {/* <Card.Link href="#">Another Link</Card.Link> */}
             </Card.Body>
         </Card>
         

@@ -23,10 +23,16 @@ export function Register(){
         setPassword(event.target.value);
       }
 
-      function onSubmit(event) {
+      async function onSubmit(event) {
         event.preventDefault();
-        console.log(userName, surname, email, password );
-        onRegister()
+        try {
+          let onRegisterResponse = await onRegister();
+          nav("/dashboard")
+          // return redirect("/dashboard")
+        } catch (error) {
+          console.log(error.message)
+          alert("email o password non corretti")
+        }
       }
 
      function onRegister(){
@@ -35,8 +41,9 @@ export function Register(){
                 if(email) {
                     console.log("");
                    const userData = JSON.stringify({
-                        userName: "Melissa",
-                        surname: "Mastro"
+                        userName,
+                        surname,
+                        email
                 })
                 // const userData = ({
                 //   username: "Melissa",
