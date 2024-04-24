@@ -13,13 +13,21 @@ export function Login() {
   function handlePasswordChange(event) {
     setPassword(event.target.value);
   }
-  
+
   async function onSubmit(event) {
     event.preventDefault();
     try {
-      let onSubmitResponse = await onLogin();
-      nav("/dashboard")
-      // return redirect("/dashboard")
+      if (email && password) {
+        let onSubmitResponse = await onLogin();
+        //nav("/dashboard")
+        // return redirect("/dashboard")
+        const {user} = onSubmitResponse;
+        //console.log(onSubmitResponse);
+        console.log(user);
+      } else {
+        alert("Email o password non inseriti");
+      }
+
     } catch (error) {
       console.log(error.message)
       alert("email o password non corretti")
@@ -28,20 +36,51 @@ export function Login() {
 
   function onLogin() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email) {
-          console.log("login avvenuto con successo");
-          const userData = JSON.stringify({
-            userName: "Melissa",
-            surname: "Mastrovincenzo",
-            email,
-          });
-          resolve(localStorage.setItem("useInfo", userData));
-        } else {
-          console.log("email o password non corretti");
-          reject("the email is not correct");
-        }
-      }, 1000);
+        //CORS Everywhere
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append('Access-Control-Allow-Origin', '*');
+
+        const raw = JSON.stringify({
+          "email": email,
+          "password": password
+        });
+
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          // redirect: "follow"
+        };
+
+        fetch("http://localhost:3000/login",requestOptions)
+          .then((res) => res.json())
+          .then((json) => {
+            resolve(json)
+          })
+          .catch((error) => reject(error));
+
+        // fetch("http://localhost:3000/login", requestOptions)
+
+        //   .then((response) => {
+        //     console.log(response);
+        //     response.json();
+
+        //   })
+        //   .then((result) => {
+        //     //localStorage.setItem("result", result);
+        //     console.log(result);
+        //     //const jsonResult = JSON.parse(result)
+        //     //console.log(jsonResult);
+        //     console.log("login avvenuto con successo");
+
+
+
+
+        //   })
+
+        //   .catch((error) => console.error(error));
     });
   }
 
