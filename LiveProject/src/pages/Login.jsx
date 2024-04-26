@@ -22,8 +22,14 @@ export function Login() {
         //nav("/dashboard")
         // return redirect("/dashboard")
         const {user} = onSubmitResponse;
-        //console.log(onSubmitResponse);
-        console.log(user);
+        const {token} = onSubmitResponse;
+
+        localStorage.setItem('useInfo', JSON.stringify(user))
+        localStorage.setItem('token', token)
+        console.log(token)
+        nav("/dashboard")
+        
+        
       } else {
         alert("Email o password non inseriti");
       }
